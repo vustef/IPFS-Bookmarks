@@ -11,6 +11,8 @@ import {
 import BookmarksList from './BookmarksList';
 import Home from "./Home";
 import Stuff from "./Stuff";
+import Loginscreen from './Loginscreen'
+import UploadScreen from './UploadScreen';
 
 console.log('Start')
 
@@ -22,8 +24,18 @@ class App extends React.Component {
       version: null,
       protocol_version: null,
       added_file_hash: null,
-      added_file_contents: null
+      added_file_contents: null,
+      loginPage:[],
+      uploadScreen:[]
     }
+  }
+
+  componentWillMount(){
+    var loginPage =[];
+    loginPage.push(<Loginscreen parentContext={this}/>);
+    this.setState({
+                  loginPage:loginPage
+                    })
   }
 
   render () {
@@ -41,6 +53,10 @@ class App extends React.Component {
               <Route path="/stuff" component={Stuff}/>
             </div>
             <BookmarksList />
+            <div className="App">
+              {this.state.loginPage}
+              {this.state.uploadScreen}
+            </div>
           </div>
         </HashRouter>
     );
