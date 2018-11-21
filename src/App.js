@@ -1,9 +1,18 @@
 'use strict'
-const React = require('react')
-const ipfsAPI = require('ipfs-api')
 
-const ipfs = ipfsAPI('localhost', '5001')
-const stringToUse = 'hello world from webpacked IPFS'
+import React from "react";
+import { hot } from 'react-hot-loader'
+import {
+  Route,
+  NavLink,
+  HashRouter
+} from "react-router-dom";
+
+import BookmarksList from './BookmarksList';
+import Home from "./Home";
+import Stuff from "./Stuff";
+
+console.log('Start')
 
 class App extends React.Component {
   constructor (props) {
@@ -16,48 +25,26 @@ class App extends React.Component {
       added_file_contents: null
     }
   }
-  componentDidMount () {
-    ipfs.id((err, res) => {
-      if (err) throw err
-      this.setState({
-        id: res.id,
-        version: res.agentVersion,
-        protocol_version: res.protocolVersion
-      })
-    })
-    ipfs.add([Buffer.from(stringToUse)], (err, res) => {
-      if (err) throw err
-      const hash = res[0].hash
-      this.setState({added_file_hash: hash})
-      ipfs.cat(hash, (err, res) => {
-        if (err) throw err
-        let data = ''
-        res.on('data', (d) => {
-          data = data + d
-        })
-        res.on('end', () => {
-          this.setState({added_file_contents: data})
-        })
-      })
-    })
-  }
+
   render () {
-    return <div style={{textAlign: 'center'}}>
-      <h1>Everything is working!</h1>
-      <p>Your ID is <strong>{this.state.id}</strong></p>
-      <p>Your IPFS version is <strong>{this.state.version}</strong></p>
-      <p>Your IPFS protocol version is <strong>{this.state.protocol_version}</strong></p>
-      <div>
-        <div>
-          Added a file! <br />
-          {this.state.added_file_hash}
-        </div>
-        <div>
-          Contents of this file: <br />
-          {this.state.added_file_contents}
-        </div>
-      </div>
-    </div>
+    console.log('render App')
+    return (
+        <HashRouter> 
+          <div style={{textAlign: 'center'}}>
+            <h1>Everything is working!</h1>
+            <ul className="header">
+              <li><NavLink exact to="/">Home</NavLink></li>
+              <li><NavLink to="/stuff">Stuff</NavLink></li>
+            </ul>
+            <div className="content">
+              <Route exact path="/" component={Home}/>
+              <Route path="/stuff" component={Stuff}/>
+            </div>
+            <BookmarksList />
+          </div>
+        </HashRouter>
+    );
   }
 }
-module.exports = App
+
+export default hot(module)(App)

@@ -1,5 +1,7 @@
 'use strict'
-const React = require('react')
-const App = require('./App')
+import ReactDOM from 'react-dom'
+import React from 'react'
+import App from "./App";
+import "./styles/index.css";
 
-React.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />, document.getElementById('root'))
