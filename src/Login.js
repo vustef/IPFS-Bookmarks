@@ -1,11 +1,16 @@
 'use strict'
 
 import React from "react";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import UploadScreen from './UploadScreen';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import BookmarkScreen from './BookmarkScreen';
+
+const style = {
+    margin: 15,
+   };
 
 class Login extends React.Component {
     constructor(props){
@@ -19,25 +24,27 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-            <MuiThemeProvider>
-              <div>
-                <AppBar title="Login" />
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6">
+                            Login
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
                 <TextField
-                 hintText="Enter your Username"
-                 floatingLabelText="Username"
+                 label="Enter your Username"
                  onChange = {(event,newValue) => this.setState({username:newValue})}
                  />
                 <br/>
                 <TextField
                    type="password"
-                   hintText="Enter your Password"
-                   floatingLabelText="Password"
+                   label="Enter your Password"
                    onChange = {(event,newValue) => this.setState({password:newValue})}
                    />
                 <br/>
-                <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-            </div>
-            </MuiThemeProvider>
+                <Button variant="contained" style={style} onClick={(event) => this.handleClick(event)}>
+                    Submit
+                </Button>
             </div>
         );
     }
@@ -48,12 +55,10 @@ class Login extends React.Component {
             "password":this.state.password
         }
 
-        var uploadScreen=[];
-        uploadScreen.push(<UploadScreen appContext={this.props.appContext}/>)
-        this.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
+        var bookmarkScreen=[];
+        bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={0} />)
+        this.props.appContext.setState({loginPage:[],bookmarkScreen:bookmarkScreen})
     }
 }
-const style = {
- margin: 15,
-};
+
 export default Login;

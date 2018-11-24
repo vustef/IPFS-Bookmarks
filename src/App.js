@@ -2,19 +2,25 @@
 
 import React from "react";
 import { hot } from 'react-hot-loader'
-import {
-  Route,
-  NavLink,
-  HashRouter
-} from "react-router-dom";
 
-import BookmarksList from './BookmarksList';
-import Home from "./Home";
-import Stuff from "./Stuff";
+//import MuiThemeProvider from 'material-ui/core/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import PropTypes from 'prop-types';
+
 import Loginscreen from './Loginscreen'
-import UploadScreen from './UploadScreen';
 
 console.log('Start')
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: purple[500] },
+    secondary: { main: '#11cb5f' },
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 class App extends React.Component {
   constructor (props) {
@@ -26,13 +32,23 @@ class App extends React.Component {
       added_file_hash: null,
       added_file_contents: null,
       loginPage:[],
-      uploadScreen:[]
+      bookmarkScreen:[]
     }
+  }
+
+  static get childContextTypes()
+  {
+    return { muiTheme: PropTypes.object };
+  }
+
+  getChildContext()
+  {
+    return { muiTheme: theme };
   }
 
   componentWillMount(){
     var loginPage =[];
-    loginPage.push(<Loginscreen parentContext={this}/>);
+    loginPage.push(<Loginscreen parentContext={this} key={0}/>);
     this.setState({
                   loginPage:loginPage
                     })
@@ -41,24 +57,12 @@ class App extends React.Component {
   render () {
     console.log('render App')
     return (
-        <HashRouter> 
-          <div style={{textAlign: 'center'}}>
-            <h1>Everything is working!</h1>
-            <ul className="header">
-              <li><NavLink exact to="/">Home</NavLink></li>
-              <li><NavLink to="/stuff">Stuff</NavLink></li>
-            </ul>
-            <div className="content">
-              <Route exact path="/" component={Home}/>
-              <Route path="/stuff" component={Stuff}/>
-            </div>
-            <BookmarksList />
-            <div className="App">
+        <MuiThemeProvider theme={theme}>
+        <div className="App" style={{textAlign: 'center'}}>
               {this.state.loginPage}
-              {this.state.uploadScreen}
-            </div>
-          </div>
-        </HashRouter>
+              {this.state.bookmarkScreen}
+        </div>
+        </MuiThemeProvider>
     );
   }
 }
