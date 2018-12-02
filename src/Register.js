@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Login from './Login';
@@ -17,36 +19,36 @@ class Register extends Component {
   render() {
     return (
       <div>
-          <AppBar
-             title="Register"
-           />
+           <AppBar position="static">
+                    <Toolbar>
+                        <Typography variant="h6">
+                            Register
+                        </Typography>
+                    </Toolbar>
+           </AppBar>
            <TextField
-             hintText="Enter your First Name"
-             floatingLabelText="First Name"
+             label="Enter your First Name"
              onChange = {(event,newValue) => this.setState({first_name:newValue})}
              />
            <br/>
            <TextField
-             hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
+             label="Enter your Last Name"
              onChange = {(event,newValue) => this.setState({last_name:newValue})}
              />
            <br/>
            <TextField
-             hintText="Enter your Email"
+             label="Enter your Email"
              type="email"
-             floatingLabelText="Email"
              onChange = {(event,newValue) => this.setState({email:newValue})}
              />
            <br/>
            <TextField
              type = "password"
-             hintText="Enter your Password"
-             floatingLabelText="Password"
+             label="Enter your Password"
              onChange = {(event,newValue) => this.setState({password:newValue})}
              />
            <br/>
-           <Button variant="contained" primary={true} style={style} onClick={(event) => this.handleClick(event)}>
+           <Button variant="contained" style={style} onClick={(event) => this.handleClick(event)}>
             Submit
            </Button>
       </div>
