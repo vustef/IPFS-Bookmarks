@@ -3,7 +3,7 @@ import MockEncryption, {encryptionKeyBinding, consistentHashBinding, encryptedSt
 container.bind(encryptedStringBinding).toConstantValue("myEncryptedString");
 container.bind(consistentHashBinding).toConstantValue("myConsistentHash");
 container.bind(encryptionKeyBinding).toConstantValue("myEncryptionKey");
-container.bind(TYPES.Encryptor).to(MockEncryption);
+container.bind(TYPES.Encryptor).to(MockEncryption).inSingletonScope();
 
 import IdentityHandler from '../src/identity/IdentityHandler';
 var identityHandler = new IdentityHandler("local")

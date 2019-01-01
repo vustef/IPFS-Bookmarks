@@ -10,6 +10,8 @@ const encryptedStringBinding = 'EncryptedString';
 export default class MockEncryption extends EncryptionBase {
     constructor(encryptionKey, consistentHash, encryptedString) {
         super();
+        this.dict = {};
+        this.id = 0;
         this.encryptionKey = encryptionKey;
         this.consistentHash = consistentHash;
         this.encryptedString = encryptedString;
@@ -23,12 +25,21 @@ export default class MockEncryption extends EncryptionBase {
     }
 
     encrypt(inputStr, encryptionKey) {
-        this.originalString = inputStr;
-        return this.encryptedString;
+        for (var key in this.dict) {
+            console.log("Found: " + key + ", value: " + this.dict[key]);
+            if (this.dict[key] === inputStr) {
+                return key;
+            }
+        }
+
+        var res = this.encryptedString + this.id++;
+        this.dict[res] = inputStr;
+
+        return res;
     }
 
     decrypt(inputStr, encryptionKey) {
-        return this.originalString;
+        return this.dict[inputStr];
     }
 }
 

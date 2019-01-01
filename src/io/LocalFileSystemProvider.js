@@ -9,15 +9,11 @@ export default class LocalFileSystemProvider extends FileSystemProvider {
     }
 
     createFileWithContent (fileContent, destinationFilePath) {
-        fs.writeFile(destinationFilePath, fileContent, function(err, data){
-            if (err) throw new Error('File already exists'); // TODO: Perhaps some other reason - need to work concurrently also.
-        });
+        fs.writeFileSync(destinationFilePath, fileContent);
     }
 
     getFileContent(filePath) {
-        fs.readFile(filePath, function(err, buf) {
-            return buf.toString();
-          });
+        return fs.readFileSync(filePath).toString();
     }
 
     getUniqueFileNameForUser(username) {
