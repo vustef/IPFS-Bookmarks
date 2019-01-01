@@ -4,6 +4,7 @@ var fs = require('fs');
 
 export default class LocalFileSystemProvider extends FileSystemProvider {
     constructor () {
+        super();
         this.encryptor = container.get(TYPES.Encryptor);
     }
 

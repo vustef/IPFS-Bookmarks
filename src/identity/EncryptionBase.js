@@ -14,6 +14,10 @@ export default class EncryptionBase {
     encrypt(inputStr, encryptionKey) {
         throw new Error('You have to implement the method encrypt!');
     }
+
+    decrypt(inputStr, encryptionKey) {
+        throw new Error('You have to implement the method decrypt!');
+    }
 }
 
 inversify.decorate(inversify.injectable(), EncryptionBase);

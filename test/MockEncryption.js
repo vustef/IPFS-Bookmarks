@@ -23,7 +23,12 @@ export default class MockEncryption extends EncryptionBase {
     }
 
     encrypt(inputStr, encryptionKey) {
+        this.originalString = inputStr;
         return this.encryptedString;
+    }
+
+    decrypt(inputStr, encryptionKey) {
+        return this.originalString;
     }
 }
 
