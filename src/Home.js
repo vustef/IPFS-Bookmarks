@@ -1,8 +1,6 @@
 'use strict'
 
 import React from "react";
- 
-console.log('Home')
 
 export default class Home extends React.Component {
   constructor (props) {
@@ -10,7 +8,6 @@ export default class Home extends React.Component {
   }
 
   render() {
-    console.log('render Home')
     return (
       <div>
         <h2>HELLO</h2>

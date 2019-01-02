@@ -33,13 +33,13 @@ class Login extends React.Component {
                 </AppBar>
                 <TextField
                  label="Enter your Username"
-                 onChange = {(event,newValue) => this.setState({username:newValue})}
+                 onChange = {(event) => this.setState({username:event.target.value})}
                  />
                 <br/>
                 <TextField
                    type="password"
                    label="Enter your Password"
-                   onChange = {(event,newValue) => this.setState({password:newValue})}
+                   onChange = {(event) => this.setState({password:event.target.value})}
                    />
                 <br/>
                 <Button variant="contained" style={style} onClick={(event) => this.handleClick(event)}>
@@ -52,7 +52,7 @@ class Login extends React.Component {
   handleClick(event){
         var bookmarkScreen=[];
         this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
-        bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={0} />)
+        bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={3} />)
         this.props.appContext.setState({loginPage:[],bookmarkScreen:bookmarkScreen})
     }
 }

@@ -25,8 +25,6 @@ export default class LoginController {
         }
 
         if (decryptedContent !== usernameHash) {
-            console.log(decryptedContent);
-            console.log(usernameHash);
             throw new Error(this.errorMessage);
         }
 

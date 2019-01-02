@@ -26,13 +26,13 @@ class Register extends Component {
            </AppBar>
            <TextField
              label="Enter your Username"
-             onChange = {(event,newValue) => this.setState({username:newValue})}
+             onChange = {(event) => this.setState({username:event.target.value})}
              />
            <br/>
            <TextField
              type = "password"
              label="Enter your Password"
-             onChange = {(event,newValue) => this.setState({password:newValue})}
+             onChange = {(event) => this.setState({password:event.target.value})}
              />
            <br/>
            <Button variant="contained" style={style} onClick={(event) => this.handleClick(event)}>
@@ -46,7 +46,7 @@ class Register extends Component {
     //TODO: validate and check for empty values before hitting submit.
     this.props.parentContext.identityHandler.RegistrationController.register(this.state.username, this.state.password);
     var loginscreen=[];
-    loginscreen.push(<Login parentContext={this}/>);
+    loginscreen.push(<Login parentContext={this.props.parentContext} appContext={this.props.appContext} key={4}/>);
     var loginmessage = "Not registered yet. Go to registration";
     this.props.parentContext.setState({
         loginscreen:loginscreen,
