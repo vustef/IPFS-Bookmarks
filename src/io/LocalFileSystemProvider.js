@@ -9,6 +9,9 @@ export default class LocalFileSystemProvider extends FileSystemProvider {
     }
 
     createFileWithContent (fileContent, destinationFilePath) {
+        if (fs.existsSync(destinationFilePath)) {
+            throw new Error("File already exists");
+        }
         fs.writeFileSync(destinationFilePath, fileContent);
     }
 

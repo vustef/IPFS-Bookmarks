@@ -6,7 +6,7 @@ export default class LoginController {
         this.encryptor = container.get(TYPES.Encryptor);;
         this.storageType = storageType;
         this.fileSystemProvider = FileSystemFactory.createFileSystemProvider(storageType);
-        this.errorMessage = "Invalid username or password";
+        this.errorMessage = "Invalid username or password.";
     }
 
     login(username, password) {

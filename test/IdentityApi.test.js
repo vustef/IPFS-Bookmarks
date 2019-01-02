@@ -45,7 +45,8 @@ test('register new user and login fails for another one with the same password',
   try {
     encryptionKey = identityHandler.LoginController.login(username2, password2);
   }
-  catch {
+  catch (error) {
+    expect(error.message).toBe("Invalid username or password.");
     return;
   }
 
@@ -73,18 +74,17 @@ test('register multiple users and login with the same password', () => {
 });
 
 test('register user that already exists', () => {
-  const username1 = "NewUser1";
+  const username = "NewUser";
   const password1 = "NewPassword1";
-  const username2 = "NewUser1";
   const password2 = "NewPassword2";
-  identityHandler.RegistrationController.register(username1, password1);
-  var encryptionKey = identityHandler.LoginController.login(username1, password1);
+  identityHandler.RegistrationController.register(username, password1);
+  var encryptionKey = identityHandler.LoginController.login(username, password1);
   expect(encryptionKey).toBeDefined()
   try {
-    encryptionKey = identityHandler.RegistrationController.register(username2, password2);
+    encryptionKey = identityHandler.RegistrationController.register(username, password2);
   }
   catch (error) {
-    console.log(error);
+    expect(error.message).toBe("User already exists.");
     return;
   }
 
