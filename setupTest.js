@@ -16,3 +16,15 @@ beforeEach(() => {
     startingDir = '..';
     process.chdir(workingDir);
 });
+
+beforeAll(() => {
+    process.chdir(startingDir);
+    if (fs.existsSync(workingDir)) {
+        rimraf.sync(workingDir);
+    }
+
+    fs.mkdirSync(workingDir);
+
+    startingDir = '..';
+    process.chdir(workingDir);
+});

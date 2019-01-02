@@ -50,12 +50,8 @@ class Login extends React.Component {
     }
 
   handleClick(event){
-        var payload={
-            "email":this.state.username,
-            "password":this.state.password
-        }
-
         var bookmarkScreen=[];
+        this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
         bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={0} />)
         this.props.appContext.setState({loginPage:[],bookmarkScreen:bookmarkScreen})
     }

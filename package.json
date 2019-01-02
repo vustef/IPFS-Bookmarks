@@ -10,7 +10,7 @@
     "testEnvironment": "node",
     "setupTestFrameworkScriptFile": "./setupTest.js",
     "transform": {
-        "^.+\\.js$": "babel-jest"
+      ".*.js$": "babel-jest"
     }
   },
   "author": "Vukasin Stefanovic <vukasin.stefanovic92@gmail.com>",
@@ -24,22 +24,23 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "css-loader": "^1.0.1",
-    "ipfs-api": "^26.1.2",
     "jest": "^23.6.0",
     "json-loader": "~0.5.3",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.26.0",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "crypto-js": "^3.1.9-1",
+    "inversify": "^5.0.1",
+    "prop-types": "^15.5.7",
+    "reflect-metadata": "^0.1.12",
+    "ipfs-api": "^26.1.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-hot-loader": "^4.3.12",
     "react-router-dom": "^4.3.1",
-    "regenerator-runtime": "^0.13.1",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.26.0",
-    "webpack-dev-server": "^3.1.10"
-  },
-  "dependencies": {
-    "@material-ui/core": "^3.5.1",
-    "inversify": "^5.0.1",
-    "prop-types": "^15.5.7",
-    "reflect-metadata": "^0.1.12"
+    "regenerator-runtime": "^0.13.1"
   }
 }

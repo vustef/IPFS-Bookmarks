@@ -2,15 +2,16 @@
 
 import React from "react";
 import { hot } from 'react-hot-loader'
-
-//import MuiThemeProvider from 'material-ui/core/styles/MuiThemeProvider'
+import {container, TYPES} from '../src/inversify.config'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import PropTypes from 'prop-types';
-
 import Loginscreen from './Loginscreen'
 
+import Encryption from './identity/Encryption';
+
 console.log('Start')
+container.bind(TYPES.Encryptor).to(Encryption).inSingletonScope();
 
 const theme = createMuiTheme({
   palette: {

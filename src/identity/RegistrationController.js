@@ -12,11 +12,11 @@ export default class RegistrationController {
         try {
             var fileName = this.fileSystemProvider.getUniqueFileNameForUser(username);
             var encryptionKey = this.encryptor.generateEncryptionKey(username, password);
-            var encryptedUsername = this.encryptor.encrypt(username, encryptionKey);
+            var usernameHash = this.encryptor.getDeterministicHash(username);
     
             // TODO: Perhaps leave failing to createFileWithContent method, it has to fail anyway.
             // TODO: use abstraction for writing, to have concurrent reads (collaborative editing).
-            var encryptedFileContent = this.encryptor.encrypt(encryptedUsername, encryptionKey);
+            var encryptedFileContent = this.encryptor.encrypt(usernameHash, encryptionKey);
             this.fileSystemProvider.createFileWithContent(encryptedFileContent, fileName /* destinationPath */);
         }
         catch (error) {

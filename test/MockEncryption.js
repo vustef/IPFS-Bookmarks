@@ -22,7 +22,7 @@ export default class MockEncryption extends EncryptionBase {
         return this.encryptionKey;
     }
 
-    getConsistentHash(inputStr) {
+    getDeterministicHash(inputStr) {
         if (this.hashDict[inputStr]) {
             return this.hashDict[inputStr];
         }

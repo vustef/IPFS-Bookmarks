@@ -11,11 +11,10 @@ export default class LoginController {
 
     login(username, password) {
         try {
-
             var fileName = this.fileSystemProvider.getUniqueFileNameForUser(username);
             var encryptionKey = this.encryptor.generateEncryptionKey(username, password);
-            var encryptedUsername = this.encryptor.encrypt(username, encryptionKey);
-    
+            var usernameHash = this.encryptor.getDeterministicHash(username);
+
             // Try to open file with name equal to username, to see if this user exists.
             var content = this.fileSystemProvider.getFileContent(fileName); // TODO: could fail.
             var decryptedContent = this.encryptor.decrypt(content, encryptionKey);
@@ -25,7 +24,9 @@ export default class LoginController {
             throw new Error(this.errorMessage);
         }
 
-        if (decryptedContent !== encryptedUsername) {
+        if (decryptedContent !== usernameHash) {
+            console.log(decryptedContent);
+            console.log(usernameHash);
             throw new Error(this.errorMessage);
         }
 

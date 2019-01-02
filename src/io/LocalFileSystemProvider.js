@@ -20,6 +20,6 @@ export default class LocalFileSystemProvider extends FileSystemProvider {
     }
 
     getUniqueFileNameForUser(username) {
-        return this.encryptor.getConsistentHash(username);
+        return this.encryptor.getDeterministicHash(username);
     }
 }

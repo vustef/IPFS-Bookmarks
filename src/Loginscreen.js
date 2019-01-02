@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import Login from './Login';
 import Register from './Register';
-
+import IdentityHandler from './identity/IdentityHandler';
 class Loginscreen extends Component {
   constructor(props){
     super(props);
@@ -13,8 +18,10 @@ class Loginscreen extends Component {
       loginscreen:[],
       loginmessage:'',
       buttonLabel:'Register',
-      isLogin:true
+      isLogin:true,
+      fileSystemType: "local"
     }
+    this.identityHandler = new IdentityHandler(this.state.fileSystemType);
   }
   componentWillMount(){
     var loginscreen=[];
@@ -26,6 +33,8 @@ class Loginscreen extends Component {
                     })
   }
   render() {
+    const classes = this.props;
+
     return (
       <div className="loginscreen">
         {this.state.loginscreen}
@@ -35,14 +44,32 @@ class Loginscreen extends Component {
                <Button variant="contained" style={style} onClick={(event) => this.handleClick(event)}>
                 {this.state.buttonLabel}
                </Button>
+               <FormControl component="fieldset" className={classes.formControl}>
+                  <FormLabel component="legend">Type</FormLabel>
+                  <RadioGroup
+                    aria-label="Type"
+                    name="type1"
+                    className={classes.group}
+                    value={this.state.fileSystemType}
+                    onChange={(event) => this.handleChange(event)}>
+                    <FormControlLabel value="local" control={<Radio />} label="Local" />
+                    <FormControlLabel value="ipfs" control={<Radio />} label="IPFS" />
+                  </RadioGroup>
+                </FormControl>
            </div>
         </div>
       </div>
     );
   }
 
+  handleChange(event) {
+    this.setState({
+      fileSystemType: event.target.value
+        });
+    this.identityHandler = new IdentityHandler(event.target.value);
+  }
+
   handleClick(event){
-    // console.log("event",event);
     var loginmessage;
     if(this.state.isLogin){
       var loginscreen=[];
