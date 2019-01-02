@@ -51,6 +51,8 @@ class Login extends React.Component {
 
   handleClick(event){
         var bookmarkScreen=[];
+
+        // TODO: If this errors out, message won't be printed in browser - fix this. Same in register.js.
         this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
         bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={3} />)
         this.props.appContext.setState({loginPage:[],bookmarkScreen:bookmarkScreen})
