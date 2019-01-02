@@ -19,8 +19,6 @@ export default class LoginController {
         var decryptedContent = this.encryptor.decrypt(content, encryptionKey);
 
         if (decryptedContent !== encryptedUsername) {
-            console.log(decryptedContent);
-            console.log(encryptedUsername);
             throw new Error("Incorrect password.");
         }
 

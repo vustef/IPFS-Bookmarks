@@ -7,7 +7,11 @@
     "test": "jest"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./setupTest.js",
+    "transform": {
+        "^.+\\.js$": "babel-jest"
+    }
   },
   "author": "Vukasin Stefanovic <vukasin.stefanovic92@gmail.com>",
   "license": "MIT",

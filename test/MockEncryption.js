@@ -26,7 +26,6 @@ export default class MockEncryption extends EncryptionBase {
 
     encrypt(inputStr, encryptionKey) {
         for (var key in this.dict) {
-            console.log("Found: " + key + ", value: " + this.dict[key]);
             if (this.dict[key] === inputStr) {
                 return key;
             }
