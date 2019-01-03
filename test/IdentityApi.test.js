@@ -13,7 +13,7 @@ test('register new user and login', () => {
   const password = "NewPassword";
   identityHandler.RegistrationController.register(username, password);
   var encryptionKey = identityHandler.LoginController.login(username, password);
-  expect(encryptionKey).toBeDefined()
+  expect(encryptionKey[0]).toBeDefined()
   });
 
 test('register new user and login fails for another one', () => {
@@ -23,7 +23,7 @@ test('register new user and login fails for another one', () => {
   const password2 = "NewPassword2";
   identityHandler.RegistrationController.register(username1, password1);
   var encryptionKey = identityHandler.LoginController.login(username1, password1);
-  expect(encryptionKey).toBeDefined()
+  expect(encryptionKey[0]).toBeDefined()
   try {
     encryptionKey = identityHandler.LoginController.login(username2, password2);
   }
@@ -41,7 +41,7 @@ test('register new user and login fails for another one with the same password',
   const password2 = "NewPassword";
   identityHandler.RegistrationController.register(username1, password1);
   var encryptionKey = identityHandler.LoginController.login(username1, password1);
-  expect(encryptionKey).toBeDefined()
+  expect(encryptionKey[0]).toBeDefined()
   try {
     encryptionKey = identityHandler.LoginController.login(username2, password2);
   }
@@ -59,7 +59,7 @@ test('register multiple users and login', () => {
     var password = "NewPassword" + i;
     identityHandler.RegistrationController.register(username, password);
     var encryptionKey = identityHandler.LoginController.login(username, password);
-    expect(encryptionKey).toBeDefined()
+    expect(encryptionKey[0]).toBeDefined()
   }
 });
 
@@ -69,7 +69,7 @@ test('register multiple users and login with the same password', () => {
     var username = "NewUser" + i;
     identityHandler.RegistrationController.register(username, password);
     var encryptionKey = identityHandler.LoginController.login(username, password);
-    expect(encryptionKey).toBeDefined()
+    expect(encryptionKey[0]).toBeDefined()
   }
 });
 
@@ -79,7 +79,7 @@ test('register user that already exists', () => {
   const password2 = "NewPassword2";
   identityHandler.RegistrationController.register(username, password1);
   var encryptionKey = identityHandler.LoginController.login(username, password1);
-  expect(encryptionKey).toBeDefined()
+  expect(encryptionKey[0]).toBeDefined()
   try {
     encryptionKey = identityHandler.RegistrationController.register(username, password2);
   }

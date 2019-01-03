@@ -15,4 +15,8 @@ export default class FileSystemProvider {
     getUniqueFileNameForUser(username) {
         throw new Error('You have to implement the method getUniqueFileNameForUser!');
     }
+
+    appendLine(filePath, line) {
+        throw new Error('You have to implement the method appendLine!');
+    }
 }

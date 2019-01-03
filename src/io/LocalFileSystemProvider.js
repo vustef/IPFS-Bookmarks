@@ -22,4 +22,8 @@ export default class LocalFileSystemProvider extends FileSystemProvider {
     getUniqueFileNameForUser(username) {
         return this.encryptor.getDeterministicHash(username);
     }
+
+    appendLine(filePath, line) {
+        fs.appendFileSync(filePath, line + '\n');
+    }
 }

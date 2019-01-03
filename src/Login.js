@@ -53,8 +53,8 @@ class Login extends React.Component {
         var bookmarkScreen=[];
 
         // TODO: If this errors out, message won't be printed in browser - fix this. Same in register.js.
-        this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
-        bookmarkScreen.push(<BookmarkScreen appContext={this.props.appContext} key={3} />)
+        var loginResult = this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
+        bookmarkScreen.push(<BookmarkScreen fileSystemProvider={this.props.parentContext.identityHandler.LoginController.fileSystemProvider} appContext={this.props.appContext} key={3} encryptionKey={loginResult[0]} fileName={loginResult[1]} />) // TODO: Going to other page and back requires new login...
         this.props.appContext.setState({loginPage:[],bookmarkScreen:bookmarkScreen})
     }
 }
