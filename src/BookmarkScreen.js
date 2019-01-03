@@ -48,6 +48,39 @@ class BookmarkScreen extends React.Component {
     );
   }
 
+  componentWillMount(){
+    var bookmarkList=[];
+      var fileSystemProvider = this.props.fileSystemProvider;
+      var fileName = this.props.fileName;
+
+      this.encryptor = container.get(TYPES.Encryptor);
+
+      var content = fileSystemProvider.getFileContent(fileName);
+      console.log('content: ' + content)
+      var bookmarksInFile = content.split('<HEADER_END>')[1];
+      console.log('bookmarksInFile: '+ bookmarksInFile)
+      bookmarksInFile = bookmarksInFile.split('\n');
+      for (var i = 0; i < bookmarksInFile.length; ++i) { // TODO: susceptible to script injection?
+        var bookmarkInFile = bookmarksInFile[i];
+        console.log('bookmarkInFile: '+ bookmarkInFile)
+        if (!bookmarkInFile || bookmarkInFile == '') {
+          continue;
+        }
+        var decryptedBookmarkInFile = this.encryptor.decrypt(bookmarkInFile, this.props.encryptionKey);
+        decryptedBookmarkInFile = decryptedBookmarkInFile//.substr(0, decryptedBookmarkInFile.length-1);
+        console.log('decryptedBookmarkInFile: '+ decryptedBookmarkInFile)
+        var deserializedBookmarkInFile = JSON.parse(decryptedBookmarkInFile);
+        console.log('deserializedBookmarkInFile: '+ deserializedBookmarkInFile)
+        bookmarkList.push(deserializedBookmarkInFile);
+      }
+      
+      this.setState({
+        bookmarkList:bookmarkList,
+        bookmarkLink:'',
+        bookmarkLink:''
+      });
+  }
+
   handleClick(event){
       var bookmarkList=[];
       var fileSystemProvider = this.props.fileSystemProvider;
