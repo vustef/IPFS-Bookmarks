@@ -1,9 +1,7 @@
 import React from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import { serialize, deserialize } from "react-serialize"
 import {container, TYPES} from './inversify.config'
 
 const style = {
@@ -37,13 +35,8 @@ class BookmarkScreen extends React.Component {
           Add bookmark
         </Button>
         <div>
-          <div>
-            <List component="nav">
             {this.state.bookmarkList}
-            </List>
-          </div>
         </div>
-        
       </div>
     );
   }
@@ -69,11 +62,11 @@ class BookmarkScreen extends React.Component {
         var decryptedBookmarkInFile = this.encryptor.decrypt(bookmarkInFile, this.props.encryptionKey);
         decryptedBookmarkInFile = decryptedBookmarkInFile//.substr(0, decryptedBookmarkInFile.length-1);
         console.log('decryptedBookmarkInFile: '+ decryptedBookmarkInFile)
-        var deserializedBookmarkInFile = JSON.parse(decryptedBookmarkInFile);
+        var deserializedBookmarkInFile = deserialize(decryptedBookmarkInFile);
         console.log('deserializedBookmarkInFile: '+ deserializedBookmarkInFile)
         bookmarkList.push(deserializedBookmarkInFile);
       }
-      
+
       this.setState({
         bookmarkList:bookmarkList,
         bookmarkLink:'',
@@ -102,24 +95,29 @@ class BookmarkScreen extends React.Component {
         var decryptedBookmarkInFile = this.encryptor.decrypt(bookmarkInFile, this.props.encryptionKey);
         decryptedBookmarkInFile = decryptedBookmarkInFile//.substr(0, decryptedBookmarkInFile.length-1);
         console.log('decryptedBookmarkInFile: '+ decryptedBookmarkInFile)
-        var deserializedBookmarkInFile = JSON.parse(decryptedBookmarkInFile);
+        var deserializedBookmarkInFile = deserialize(decryptedBookmarkInFile);
         console.log('deserializedBookmarkInFile: '+ deserializedBookmarkInFile)
         bookmarkList.push(deserializedBookmarkInFile);
       }
-      var bookmark = <a href={this.state.bookmarkLink}>
-      <ListItem button key={bookmarkList.length}>
-        <ListItemText primary={this.state.bookmarkName} />
-      </ListItem>
-    </a>
+      var bookmark = (
+        <div>
+          <a href={this.state.bookmarkLink}>
+            {this.state.bookmarkName}
+          </a>
+        </div>
+      )
+
+      console.log('HAAAA: ' + bookmark)
 
       // TODO: link has to have http prefix...handle this?
       bookmarkList.push(
         bookmark
       );
 
-      var jsonBookmark = JSON.stringify(bookmark);
+      var jsonBookmark = serialize(bookmark);
+      console.log('jsonBookmark: ' + jsonBookmark);
       var encryptedBookmark = this.encryptor.encrypt(jsonBookmark, this.props.encryptionKey);
-
+      console.log('encryptedBookmark: ' + encryptedBookmark);
       // TODO: Filesystem could be dependency injection...
       fileSystemProvider.appendLine(fileName, encryptedBookmark)
 
