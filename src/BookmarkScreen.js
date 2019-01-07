@@ -3,10 +3,19 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { serialize, deserialize } from "react-serialize"
 import {container, TYPES} from './inversify.config'
+import Loginscreen from './Loginscreen'
 
 const style = {
   margin: 15,
  };
+
+
+function eraseCookie(name) {   
+  document.cookie = name+'=; Max-Age=-99999999;';  
+}
+
+const encryptionKeyCookie = "encryptionKey";
+const fileNameCookie = "fileName";
 
 class BookmarkScreen extends React.Component {
   constructor(props){
@@ -22,7 +31,9 @@ class BookmarkScreen extends React.Component {
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>Bookmarks</h1>
-
+        <Button variant="contained" style={style} onClick={(event) => this.handleLogoutClick(event)}>
+          Logout
+        </Button>
         <TextField
           label="Enter bookmark name"
           onChange = {(event) => this.setState({bookmarkName:event.target.value})}/>
@@ -72,6 +83,17 @@ class BookmarkScreen extends React.Component {
         bookmarkLink:'',
         bookmarkLink:''
       });
+  }
+
+  handleLogoutClick(event){
+    eraseCookie(encryptionKeyCookie);
+    eraseCookie(fileNameCookie);
+    var appContext = this.props.appContext
+    var loginPage =[];
+    loginPage.push(<Loginscreen parentContext={appContext} key={0}/>);
+    appContext.setState({
+                  loginPage:loginPage
+                    })
   }
 
   handleClick(event){
