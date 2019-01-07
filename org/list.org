@@ -1,0 +1,4 @@
+* TODO Integrate in browser
+* TODO Encryption key in session cookie
+* TODO IPFS + IPNS filesystem provider
+* TODO IPNS update from different machine, check how.

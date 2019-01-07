@@ -4,7 +4,10 @@
   "description": "IPFS bookmarks",
   "scripts": {
     "start": "node server.js",
-    "test": "jest"
+    "build": "webpack",
+    "test": "jest",
+    "package-dev": "/bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox dev",
+    "package": "/bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox build"
   },
   "jest": {
     "testEnvironment": "node",
@@ -17,6 +20,9 @@
   "license": "MIT",
   "keywords": [],
   "devDependencies": {
+    "webpack-cli": "latest",
+    "web-ext": "^2.9.1",
+    "webextension-toolbox": "latest",
     "@babel/core": "^7.1.6",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
