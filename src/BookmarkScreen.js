@@ -9,9 +9,11 @@ const style = {
   margin: 15,
  };
 
-
-function eraseCookie(name) {   
-  document.cookie = name+'=; Max-Age=-99999999;';  
+function eraseCookie(name)
+{
+  console.log('cookie: ', document.cookie)
+  document.cookie = name+'=; expires='+new Date(0).toGMTString() +'; path=/';
+  console.log('cookie after delete: ', document.cookie)
 }
 
 const encryptionKeyCookie = "encryptionKey";

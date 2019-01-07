@@ -27,7 +27,9 @@ class Login extends React.Component {
     componentWillMount(){
         var encryptionKey = getCookie(encryptionKeyCookie);
         if (encryptionKey != undefined) {
+            console.log('enc key: ', encryptionKey)
             var fileName = getCookie(fileNameCookie);
+            console.log('fileName: ', fileName)
             var bookmarkScreen=[];
 
             // TODO: If this errors out, message won't be printed in browser - fix this. Same in register.js.
