@@ -4,10 +4,10 @@
   "description": "IPFS bookmarks",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack",
+    "build": "webpack -p --config ./webpack.prod.config.js",
     "test": "jest",
-    "package-dev": "/bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox dev",
-    "package": "/bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox build"
+    "package-dev": "/bin/cp -f ./node_modules/browserfs/dist/browserfs.min.js ./app/scripts/ && /bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox dev",
+    "package": "/bin/cp -f ./node_modules/browserfs/dist/browserfs.min.js ./app/scripts/ && /bin/cp -f ./dist/bundle.js app/scripts/ && webextension-toolbox build"
   },
   "jest": {
     "testEnvironment": "node",

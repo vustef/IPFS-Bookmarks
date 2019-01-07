@@ -73,12 +73,14 @@ class App extends React.Component {
 
   render () {
     return (
+        <div id="myapp">
         <MuiThemeProvider theme={theme}>
         <div className="App" style={{textAlign: 'center'}}>
               {this.state.loginPage}
               {this.state.bookmarkScreen}
         </div>
         </MuiThemeProvider>
+        </div>
     );
   }
 }
