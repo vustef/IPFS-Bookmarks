@@ -1,35 +1,28 @@
-# Bundle js-ipfs-api with Webpack!
+# voyager
 
-> In this example, you will find a boilerplate you can use to guide yourself into bundling js-ipfs-api with webpack, so that you can use it in your own web app!
+Cross-browser bookmark plugin that stores your bookmarks in IPFS
 
-## Setup
+## Install
 
-As for any js-ipfs-api example, **you need a running IPFS daemon**, you learn how to do that here:
+	$ npm install
 
-- [Spawn a go-ipfs daemon](https://ipfs.io/docs/getting-started/)
-- [Spawn a js-ipfs daemon](https://github.com/ipfs/js-ipfs#usage)
+## Development
+    npm start
 
-**Note:** If you load your app from a different domain than the one the daemon is running (most probably), you will need to set up CORS, see https://github.com/ipfs/js-ipfs-api#cors to learn how to do that.
+## Build extension before packaging
+    npm run build
 
-A quick (and dirty way to get it done) is:
+## Package extension for debug
+    npm run package-dev chrome
+    npm run package-dev firefox
+    npm run package-dev opera
+    npm run package-dev edge
 
-```bash
-> ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
-> ipfs config --json API.HTTPHeaders.Access-Control-Allow-Credentials "[\"true\"]"
-```
+## Package extension
 
-## Run this example
+    npm run build chrome
+    npm run build firefox
+    npm run build opera
+    npm run build edge
 
-Once the daemon is on, run the following commands within this folder:
-
-```bash
-> npm install
-> npm start
-```
-
-Now open your browser at `http://localhost:3000`
-
-You should see the following:
-
-![](https://ipfs.io/ipfs/QmZndNLRct3co7h1yVB72S4qfwAwbq7DQghCpWpVQ45jSi/1.png)
-
+## Environment
