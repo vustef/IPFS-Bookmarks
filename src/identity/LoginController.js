@@ -1,5 +1,6 @@
 import {container, TYPES} from '../inversify.config'
 import FileSystemFactory from '../io/FileSystemFactory';
+const regeneratorRuntime = require("regenerator-runtime");
 
 export default class LoginController {
     constructor(storageType){
@@ -9,15 +10,15 @@ export default class LoginController {
         this.errorMessage = "Invalid username or password.";
     }
 
-    login(username, password) {
+    async login(username, password) {
         var fileName = ''
         try {
-            fileName = this.fileSystemProvider.getUniqueFileNameForUser(username);
+            fileName = await this.fileSystemProvider.getUniqueFileNameForUser(username);
             var encryptionKey = this.encryptor.generateEncryptionKey(username, password);
             var usernameHash = this.encryptor.getDeterministicHash(username);
 
             // Try to open file with name equal to username, to see if this user exists.
-            var content = this.fileSystemProvider.getFileContent(fileName); // TODO: could fail.
+            var content = await this.fileSystemProvider.getFileContent(fileName); // TODO: could fail.
             var header = content.split('<HEADER_END>')[0];
             var decryptedHeader = this.encryptor.decrypt(header, encryptionKey);
         }

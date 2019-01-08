@@ -25,4 +25,12 @@ Cross-browser bookmark plugin that stores your bookmarks in IPFS
     npm run build opera
     npm run build edge
 
-## Environment
+## Create user
+set up CORS for IPFS on your machine:
+ipfs init
+ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["null"]'
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "GET", "POST"]'
+
+stat IPFS daemon on localhost:5001
+ipfs key gen --type=ed25519 User1

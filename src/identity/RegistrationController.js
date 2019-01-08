@@ -1,5 +1,6 @@
 import {container, TYPES} from '../inversify.config'
 import FileSystemFactory from '../io/FileSystemFactory';
+const regeneratorRuntime = require("regenerator-runtime");
 
 export default class RegistrationController {
     constructor(storageType){
@@ -8,18 +9,19 @@ export default class RegistrationController {
         this.encryptor = container.get(TYPES.Encryptor);
     }
 
-    register(username, password) {
+    async register(username, password) {
         try {
-            var fileName = this.fileSystemProvider.getUniqueFileNameForUser(username);
+            var fileName = await this.fileSystemProvider.getUniqueFileNameForUser(username);
             var encryptionKey = this.encryptor.generateEncryptionKey(username, password);
             var usernameHash = this.encryptor.getDeterministicHash(username);
     
             // TODO: Perhaps leave failing to createFileWithContent method, it has to fail anyway.
             // TODO: use abstraction for writing, to have concurrent reads (collaborative editing).
             var encryptedFileContent = this.encryptor.encrypt(usernameHash, encryptionKey);
-            this.fileSystemProvider.createFileWithContent(encryptedFileContent + '<HEADER_END>', fileName /* destinationPath */);
+            await this.fileSystemProvider.createFileWithContent(encryptedFileContent + '<HEADER_END>', fileName /* destinationPath */);
         }
         catch (error) {
+            console.error(error)
             throw new Error("User already exists.");
         }
     }

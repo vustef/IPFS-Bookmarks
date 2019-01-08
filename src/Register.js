@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Login from './Login';
+const regeneratorRuntime = require("regenerator-runtime");
 
 class Register extends Component {
   constructor(props){
@@ -42,9 +43,9 @@ class Register extends Component {
     );
   }
 
-  handleClick(event){
+  async handleClick(event){
     //TODO: validate and check for empty values before hitting submit.
-    this.props.parentContext.identityHandler.RegistrationController.register(this.state.username, this.state.password);
+    await this.props.parentContext.identityHandler.RegistrationController.register(this.state.username, this.state.password);
     var loginscreen=[];
     loginscreen.push(<Login parentContext={this.props.parentContext} appContext={this.props.appContext} key={4}/>);
     var loginmessage = "Not registered yet. Go to registration";

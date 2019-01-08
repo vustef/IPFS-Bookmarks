@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import BookmarkScreen from './BookmarkScreen';
+const regeneratorRuntime = require("regenerator-runtime");
 
 const style = {
     margin: 15,
@@ -67,11 +68,11 @@ class Login extends React.Component {
         );
     }
 
-  handleClick(event){
+  async handleClick(event){
         var bookmarkScreen=[];
 
         // TODO: If this errors out, message won't be printed in browser - fix this. Same in register.js.
-        var loginResult = this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
+        var loginResult = await this.props.parentContext.identityHandler.LoginController.login(this.state.username, this.state.password);
         bookmarkScreen.push(<BookmarkScreen fileSystemProvider={this.props.parentContext.identityHandler.LoginController.fileSystemProvider} appContext={this.props.appContext} key={3} encryptionKey={loginResult[0]} fileName={loginResult[1]} />) // TODO: Going to other page and back requires new login...
         setCookie(encryptionKeyCookie, loginResult[0], 1);
         setCookie(fileNameCookie, loginResult[1], 1);

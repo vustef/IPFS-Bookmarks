@@ -13,4 +13,4 @@ test('test ipfs', async () => {
     await fileSystemProvider.appendLine(fileName, 'line');
     readContent = await fileSystemProvider.getFileContent(fileName);
     expect(readContent).toBe(content+'line'+'\n');
-});
+}, 180000 /* timeout */);

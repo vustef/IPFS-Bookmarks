@@ -7,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import PropTypes from 'prop-types';
 import Loginscreen from './Loginscreen'
+const regeneratorRuntime = require("regenerator-runtime");
 
 import Encryption from './identity/Encryption';
 

@@ -38,9 +38,6 @@ module.exports = {
       loaders: ['babel-loader'],
       include: path.join(__dirname, 'src')
     }, {
-      test: /\.json$/,
-      loader: 'json-loader'
-    }, {
       test:/\.css$/,
       loaders: ['style-loader','css-loader']
     }]

@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { serialize, deserialize } from "react-serialize"
 import {container, TYPES} from './inversify.config'
 import Loginscreen from './Loginscreen'
+const regeneratorRuntime = require("regenerator-runtime");
 
 const style = {
   margin: 15,
@@ -54,14 +55,14 @@ class BookmarkScreen extends React.Component {
     );
   }
 
-  componentWillMount(){
+  async componentWillMount(){
     var bookmarkList=[];
       var fileSystemProvider = this.props.fileSystemProvider;
       var fileName = this.props.fileName;
 
       this.encryptor = container.get(TYPES.Encryptor);
 
-      var content = fileSystemProvider.getFileContent(fileName);
+      var content = await fileSystemProvider.getFileContent(fileName);
       console.log('content: ' + content)
       var bookmarksInFile = content.split('<HEADER_END>')[1];
       console.log('bookmarksInFile: '+ bookmarksInFile)
