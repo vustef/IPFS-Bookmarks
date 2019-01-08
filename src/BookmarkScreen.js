@@ -144,7 +144,7 @@ class BookmarkScreen extends React.Component {
       var encryptedBookmark = this.encryptor.encrypt(jsonBookmark, this.props.encryptionKey);
       console.log('encryptedBookmark: ' + encryptedBookmark);
       // TODO: Filesystem could be dependency injection...
-      fileSystemProvider.appendLine(fileName, encryptedBookmark)
+      await fileSystemProvider.appendLine(fileName, encryptedBookmark)
 
       this.setState({
         bookmarkList:bookmarkList,
