@@ -12,9 +12,7 @@ const style = {
 
 function eraseCookie(name)
 {
-  console.log('cookie: ', document.cookie)
   document.cookie = name+'=; expires='+new Date(0).toGMTString() +'; path=/';
-  console.log('cookie after delete: ', document.cookie)
 }
 
 const encryptionKeyCookie = "encryptionKey";
@@ -63,21 +61,16 @@ class BookmarkScreen extends React.Component {
       this.encryptor = container.get(TYPES.Encryptor);
 
       var content = await fileSystemProvider.getFileContent(fileName);
-      console.log('content: ' + content)
       var bookmarksInFile = content.split('<HEADER_END>')[1];
-      console.log('bookmarksInFile: '+ bookmarksInFile)
       bookmarksInFile = bookmarksInFile.split('\n');
       for (var i = 0; i < bookmarksInFile.length; ++i) { // TODO: susceptible to script injection?
         var bookmarkInFile = bookmarksInFile[i];
-        console.log('bookmarkInFile: '+ bookmarkInFile)
         if (!bookmarkInFile || bookmarkInFile == '') {
           continue;
         }
         var decryptedBookmarkInFile = this.encryptor.decrypt(bookmarkInFile, this.props.encryptionKey);
-        decryptedBookmarkInFile = decryptedBookmarkInFile//.substr(0, decryptedBookmarkInFile.length-1);
-        console.log('decryptedBookmarkInFile: '+ decryptedBookmarkInFile)
+        decryptedBookmarkInFile = decryptedBookmarkInFile;
         var deserializedBookmarkInFile = deserialize(decryptedBookmarkInFile);
-        console.log('deserializedBookmarkInFile: '+ deserializedBookmarkInFile)
         bookmarkList.push(deserializedBookmarkInFile);
       }
 
@@ -91,7 +84,7 @@ class BookmarkScreen extends React.Component {
   handleLogoutClick(event){
     eraseCookie(encryptionKeyCookie);
     eraseCookie(fileNameCookie);
-    var appContext = this.props.appContext
+    var appContext = this.props.appContext; // TODO: need to copy this and set its state to initial.
     var loginPage =[];
     loginPage.push(<Loginscreen parentContext={appContext} key={0}/>);
     appContext.setState({
@@ -107,21 +100,16 @@ class BookmarkScreen extends React.Component {
       this.encryptor = container.get(TYPES.Encryptor);
 
       var content = await fileSystemProvider.getFileContent(fileName);
-      console.log('content: ' + content)
       var bookmarksInFile = content.split('<HEADER_END>')[1];
-      console.log('bookmarksInFile: '+ bookmarksInFile)
       bookmarksInFile = bookmarksInFile.split('\n');
       for (var i = 0; i < bookmarksInFile.length; ++i) { // TODO: susceptible to script injection?
         var bookmarkInFile = bookmarksInFile[i];
-        console.log('bookmarkInFile: '+ bookmarkInFile)
         if (!bookmarkInFile || bookmarkInFile == '') {
           continue;
         }
         var decryptedBookmarkInFile = this.encryptor.decrypt(bookmarkInFile, this.props.encryptionKey);
-        decryptedBookmarkInFile = decryptedBookmarkInFile//.substr(0, decryptedBookmarkInFile.length-1);
-        console.log('decryptedBookmarkInFile: '+ decryptedBookmarkInFile)
+        decryptedBookmarkInFile = decryptedBookmarkInFile;
         var deserializedBookmarkInFile = deserialize(decryptedBookmarkInFile);
-        console.log('deserializedBookmarkInFile: '+ deserializedBookmarkInFile)
         bookmarkList.push(deserializedBookmarkInFile);
       }
       var bookmark = (
@@ -132,17 +120,13 @@ class BookmarkScreen extends React.Component {
         </div>
       )
 
-      console.log('HAAAA: ' + bookmark)
-
       // TODO: link has to have http prefix...handle this?
       bookmarkList.push(
         bookmark
       );
 
       var jsonBookmark = serialize(bookmark);
-      console.log('jsonBookmark: ' + jsonBookmark);
       var encryptedBookmark = this.encryptor.encrypt(jsonBookmark, this.props.encryptionKey);
-      console.log('encryptedBookmark: ' + encryptedBookmark);
       // TODO: Filesystem could be dependency injection...
       await fileSystemProvider.appendLine(fileName, encryptedBookmark)
 
